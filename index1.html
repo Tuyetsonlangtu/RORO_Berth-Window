@@ -137,7 +137,7 @@
             <table id="table-bitt-number" ng-style="ContentStyle.style">
                 <tr>
                     <td style="position: relative;height: 20px;">
-                        <div ng-repeat="bitt in BerthStyle.style_bitt.data_style track by $index" ng-style="bitt.style">{{bitt.name}}</div>
+                        <div bitt-id="{{TotalBittData[$index].id}}" berth-id="{{TotalBittData[$index].id_berth}}" ng-repeat="bitt in BerthStyle.style_bitt.data_style track by $index" ng-style="bitt.style">{{bitt.name}}</div>
                     </td>
                 </tr>
                 <tr>
@@ -147,7 +147,7 @@
                 </tr>
                 <tr>
                     <td id="div_rule" style="position: relative;height: 15px;bottom: -1px;">
-                        <div ng-repeat="rl in BerthStyle.style_bitt.data_style track by $index" ng-style="rl.style_rule"></div>
+                        <div bitt-id="{{TotalBittData[$index].id}}" berth-id="{{TotalBittData[$index].id_berth}}" ng-repeat="rl in BerthStyle.style_bitt.data_style track by $index" ng-style="rl.style_rule"></div>
                     </td>
                 </tr>
             </table>

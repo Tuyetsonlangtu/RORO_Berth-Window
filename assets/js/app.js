@@ -1194,6 +1194,7 @@ angular.module('ngApp', [])
         };
 
 
+        $scope.col1Width = 100;
         $scope.UpdateLine = function(target){
 
             $timeout(function(){
@@ -1234,15 +1235,19 @@ angular.module('ngApp', [])
                     left:$(left2).position().left + $(target).position().left + width2 + 1
                 });
 
+                //Ramp top
+                $("#stern-ramp-top-"+vessel_id).css("left",$(target).position().left + $(left1).position().left +2 - $scope.scrollLeft);
+                $("#side-ramp-top-"+vessel_id).css("left",$(target).position().left + $(left2).position().left +2 - $scope.scrollLeft);
+
                 //Line vessel
                 $("#vessel-line-top-"+vessel_id).css("top",$(target).position().top - $scope.scrollTop + block2_margin);
-                $("#vessel-line-bottom-"+vessel_id).css("top", $(target).position().top + $(target).height() +3 -$scope.scrollTop + block2_margin);
+                $("#vessel-line-bottom-"+vessel_id).css("top", $(target).position().top + $(target).height() +3 - $scope.scrollTop + block2_margin);
 
-                $("#vessel-line-left-"+vessel_id).css("left",100 + $(target).position().left - $scope.scrollLeft);
-                $("#vessel-line-right-"+vessel_id).css("left",100 + $(target).position().left + $(target).width() +3 -$scope.scrollLeft);
+                $("#vessel-line-left-"+vessel_id).css("left",$scope.col1Width + $(target).position().left - $scope.scrollLeft);
+                $("#vessel-line-right-"+vessel_id).css("left",$scope.col1Width + $(target).position().left + $(target).width() +3 - $scope.scrollLeft);
 
-                $("#vessel-line-mooring-left-"+vessel_id).css("left",100 + $(target).position().left + $("#vessel-content-"+vessel_id).position().left +2 -$scope.scrollLeft);
-                $("#vessel-line-mooring-right-"+vessel_id).css("left",100 + $(target).position().left + $("#vessel-content-"+vessel_id).position().left + $("#vessel-content-"+vessel_id).width() + 5 -$scope.scrollLeft);
+                $("#vessel-line-mooring-left-"+vessel_id).css("left",$scope.col1Width + $(target).position().left + $("#vessel-content-"+vessel_id).position().left +2 - $scope.scrollLeft);
+                $("#vessel-line-mooring-right-"+vessel_id).css("left",$scope.col1Width + $(target).position().left + $("#vessel-content-"+vessel_id).position().left + $("#vessel-content-"+vessel_id).width() + 5 - $scope.scrollLeft);
 
                 $("#stern-ramp-line-left-"+vessel_id).css("display","block");
                 $("#side-ramp-line-left-"+vessel_id).css("display","block");
@@ -2061,6 +2066,10 @@ angular.module('ngApp', [])
             {
                 var top = $(this).scrollTop();
                 $scope.scrollTop = top;
+
+                var left = $(this).scrollLeft();
+                $scope.scrollLeft = left;
+
                 clearTimeout( $.data( this, "scrollCheck" ) );
                 $.data( this, "scrollCheck", setTimeout(function() {
 
