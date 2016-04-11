@@ -1,0 +1,760 @@
+html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+table, th, td {
+    border: 1px solid #ABABAB;
+    border-collapse: collapse;
+    /*height: 40px;*/
+}
+th, td {
+    text-align: center;
+    vertical-align: top;
+}
+
+#content
+{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+#col1
+{
+    height: 100%;
+    width: 90px;
+    float: left;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    position: absolute;
+}
+#col1-sub1
+{
+    float: left;
+    width: 88px;
+    border: 1px solid;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 35px;
+    height: 115px;
+    border: 1px solid #ABABAB;
+}
+#col1-sub2
+{
+   position: relative;
+}
+
+
+#col2
+{
+    position: absolute;
+    height: 100%;
+    float: left;
+    width: auto;
+    margin-left: 100px;
+}
+#col2-sub1
+{
+    margin-top: 35px;
+    height: 125px;
+    width: auto;
+    position: relative;
+}
+/*#table-header
+{
+    width: 100%;
+}*/
+
+.table-header
+{
+    border: none;
+    height: 23px;
+}
+.table-header th,.table-header td
+{
+    vertical-align: middle;
+    height: 20px;
+    font-size: 13px;
+}
+
+#table-bitt-number
+{
+    width: 100%;
+    position: absolute;
+    bottom: 5px;
+}
+
+.items
+{
+    width: 135px;
+    text-align: center;
+    float: left;
+    text-align: left;
+    font-weight: bold;
+    font-size: 13px;
+    position: absolute;
+}
+
+.items-sub
+{
+    width: 30px;
+    text-align: center;
+    float: left;
+    position: absolute;
+    bottom: 0px;
+    height: 10px;
+}
+
+#table-bitt-number
+{
+    border: none;
+    z-index: 11;
+}
+#table-bitt-number th,#table-bitt-number td
+{
+    border: none;
+}
+
+.bitt-number
+{
+    text-align: left;
+    float: left;
+    position: absolute;
+    height: 15px;
+    font-size: 14px;
+}
+
+
+#col2-sub2
+{
+    width: auto;
+    height: 100%;
+    position: relative;
+}
+
+#col3
+{
+    margin-top: 5px;
+    margin-left: 5px;
+    height: 100%;
+    width: 225px;
+    float: left;
+    position: absolute;
+    right: 0;
+    background: white;
+    z-index: 10;
+}
+
+#col3-sub1
+{
+   height: 145px;
+   border: 1px solid #ABABAB;
+   margin-bottom: 2px;
+}
+.col3-sub1-scroll{
+    overflow: auto;
+}
+
+.gang-horizontal
+{
+    width: 150px;
+    height: 15px;
+    border: 1px solid #ABABAB;
+    float: left;
+    margin-top: 3px;
+    margin-left: 5px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 13px;
+    cursor: move;
+    float: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.gang-vertical
+{
+    width: 15px !important;
+    height: 150px ;
+    border: 1px solid #000000;
+    float: left;
+    text-align: center;
+    font-weight: bold;
+    font-size: 14px;
+    float: left;
+    writing-mode: tb-rl;
+    text-transform: uppercase;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#col3-sub2
+{
+    width: 125px;
+    float: left;
+    border: 1px solid #ABABAB;
+    min-height: 619px;
+    height: auto;
+    position: relative;
+}
+
+#col3-sub3
+{
+    height: 100%;
+    width: 95px;
+    float: left;
+    padding-left: 2px;
+}
+
+#table-time-left
+{
+    position: relative;
+    width: 100%;
+}
+
+#table-time-right
+{
+    position: relative;
+    width: 100%;
+}
+
+
+
+.time-cell
+{
+    width: 59px;
+    height: 50px;
+    border: 1px solid #ABABAB;
+    position: absolute;
+    margin-left: -2px;
+}
+
+#table-ship
+{
+    width: auto;
+    height: 100%;
+    position: absolute;
+}
+
+#table-ship tr
+{
+    border: none;
+}
+
+#table-ship th,#table-ship td
+{
+    border: none;
+}
+
+.shiping
+{
+    cursor: move;
+    z-index: 100;
+}
+
+.ui-resizable-helper { border: 2px dotted #00F; }
+
+.gang-child
+{
+    margin-top: -1px;
+    margin-bottom:0;
+    border: none;
+    border: 1px solid;
+    /*float: right;*/
+}
+
+.ui-resizable-handle {
+    display: inline-block;
+    z-index: 100;
+    position: absolute;
+    border: 1px solid #00b3ff;
+    background: white;
+    width: 7px;
+    height: 7px;
+    margin-left: -4px;
+    margin-top: -4px;
+    /*	transition-property: width, height, margin-left, margin-top;
+        transition-duration: 0.07s;*/
+}
+
+.ui-resizable-handle:hover {
+    width:  11px;
+    height: 11px;
+    margin-left: -6px;
+    margin-top:  -6px;
+}
+
+.ui-resizable-disabled .ui-resizable-handle,
+.ui-resizable-autohide .ui-resizable-handle {
+    display: none;
+}
+
+.ui-resizable-n {
+    cursor: n-resize;
+    top: 0;
+    left: 50%;
+
+}
+.ui-resizable-s {
+    cursor: s-resize;
+    top: 100%;
+    left: 50%;
+}
+.ui-resizable-e {
+    cursor: e-resize;
+    top: 50%;
+    left: 100%;
+}
+.ui-resizable-w {
+    cursor: w-resize;
+    top: 50%;
+    left: 0;
+}
+.ui-resizable-se {
+    cursor: se-resize;
+    left: 100%;
+    top: 100%;
+}
+.ui-resizable-sw {
+    cursor: sw-resize;
+    top: 100%;
+    left: 0;
+}
+.ui-resizable-nw {
+    cursor: nw-resize;
+    top: 0;
+    left: 0;
+}
+.ui-resizable-ne {
+    cursor: ne-resize;
+    top: 0;
+    left: 100%;
+}
+
+.border-dotted
+{
+    border-left: 1px dotted;
+    border-right: 1px dotted;
+}
+
+/*.portlet-placeholder {
+    border: 1px dotted black;
+    margin: 0 1em 1em 0;
+    height: 150px;
+    width: 15px;
+}*/
+
+
+.has-gang
+{
+    /*border-left: 1px dotted;
+    border-right: 1px dotted;*/
+}
+
+#line1
+{
+    left: 312px;
+}
+#line2
+{
+    left: 362px;
+}
+
+hr.vertical
+{
+
+    top: 0 !important;
+    position: absolute;
+    color: black;
+    margin: 0;
+    padding: 0;
+    border: 1px dotted;
+    z-index: 200;
+    border-top: none;
+    border-bottom: none;
+}
+
+div.vertical {
+    top: 0 !important;
+    position: absolute;
+    color: black;
+    margin: 0;
+    padding: 0;
+    border-left: 1px dashed;
+    z-index: 200;
+    border-top: none;
+    border-bottom: none;
+}
+
+#vessel-content
+{
+    position: absolute;
+}
+.bridge
+{
+    top: 0 !important;
+    position: absolute;
+    color: black;
+    margin: 0;
+    padding: 0;
+    border-left: 2px dashed red;
+    z-index: 999;
+    border-top: none;
+    border-bottom: none;
+    display: none;
+}
+
+
+.tooltip {
+    background: #dad55e;
+    color: #000000;
+    left: -25px;
+    margin-bottom: 15px;
+    opacity: 0;
+    height: 100px;
+    width: 250px;
+    position: absolute;
+    -webkit-transform: translateY(10px);
+    -moz-transform: translateY(10px);
+    -ms-transform: translateY(10px);
+    -o-transform: translateY(10px);
+    transform: translateY(10px);
+    -webkit-transition: all .25s ease-out;
+    -moz-transition: all .25s ease-out;
+    -ms-transition: all .25s ease-out;
+    -o-transition: all .25s ease-out;
+    transition: all .25s ease-out;
+    -webkit-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+    -moz-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+    -ms-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+    -o-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+}
+
+/* This bridges the gap so you can mouse into the tooltip without it disappearing */
+.tooltip:before {
+    bottom: -20px;
+    content: " ";
+    display: block;
+    height: 20px;
+    left: 0;
+    position: absolute;
+    width: 300px;
+}
+
+/* CSS Triangles - see Trevor's post */
+.tooltip:after {
+    border-left: solid transparent 10px;
+    border-right: solid transparent 10px;
+    border-bottom: solid #dad55e 10px;
+    top: -10px;
+    content: " ";
+    height: 0;
+    left: 50%;
+    margin-left: -13px;
+    position: absolute;
+    width: 0;
+}
+
+#tooltip p{
+    margin: 5px;
+    padding: 0;
+}
+
+#tooltip a{
+    width: 25px;
+    height: 25px;
+    background: #E8E7E7;
+    position: absolute;
+    right: 0;
+    color: black;
+}
+
+#tooltip a span{
+    position: absolute;
+    left: 9px;
+    top: 2px;
+}
+
+
+/*Dialog everlay*/
+#dialog-overlay {
+
+    /* set it to fill the whil screen */
+    width:100%;
+    height:100%;
+
+    /* transparency for different browsers */
+    filter:alpha(opacity=50);
+    -moz-opacity:0.5;
+    -khtml-opacity: 0.5;
+    opacity: 0.5;
+    background:#000;
+
+    /* make sure it appear behind the dialog box but above everything else */
+    position:absolute;
+    top:0; left:0;
+    z-index:3000;
+
+    /* hide it by default */
+    display:none;
+}
+
+
+#dialog-box {
+
+    /* css3 drop shadow */
+    -webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+
+    /* css3 border radius */
+    -moz-border-radius: 1px;
+    -webkit-border-radius: 1px;
+
+    background:white;
+    /* styling of the dialog box, i have a fixed dimension for this demo */
+    width:328px;
+
+    /* make sure it has the highest z-index */
+    position:absolute;
+    z-index:5000;
+
+    /* hide it by default */
+    display:none;
+    height: 120px;
+    position: absolute;
+}
+
+#dialog-box .dialog-content {
+    /* style the content */
+    text-align:left;
+    padding:10px;
+    color:#666;
+    font-family:arial;
+    font-size:11px;
+    height: 70px;
+}
+
+#dialog-box .dialog-title {
+    width: 100%;
+    height: 30px;
+    background: #59A9FD;
+}
+
+#dialog-box .dialog-title span
+{
+    color: white;
+    margin-top: 5px;
+    position: absolute;
+    margin-left: 5px;
+}
+
+#dialog-message
+{
+    font-size: 13px;
+}
+a.button {
+    text-align: center;
+    display: block;
+    width: 50px;
+    padding: 5px 10px 6px;
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    background-color: #59A9FD;
+    -moz-border-radius: 1px;
+    -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+    position: relative;
+    cursor: pointer;
+    position: static;
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+}
+
+a.button:hover {
+    background-color: #68b0fd;
+}
+
+/* extra styling */
+#dialog-box .dialog-content p {
+
+    margin:0;
+}
+
+#dialog-box .dialog-content ul {
+    margin:10px 0 10px 20px;
+    padding:0;
+    height:50px;
+}
+
+.vessel-selected{
+    opacity: 0.8;
+    border: 2px dashed blue !important;
+}
+
+.gang-vertical-box {
+    width: 15px !important;
+    border: 1px solid #000000;
+    float: left;
+    text-align: center;
+    font-weight: bold;
+    font-size: 13px;
+    float: left;
+    writing-mode: tb-rl;
+    text-transform: uppercase;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-left: 2px;
+    cursor: pointer;
+}
+
+#gang-box-content{
+    width: 300px;
+    height: 100%;
+    margin-top: 2px;
+}
+
+.btn {
+    display: inline-block;
+    margin-bottom: 0px;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.42857;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    padding: 6px 12px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.btn-primary {
+    color: #357ebd;
+    /* background-color: #428bca; */
+    border-color: #357ebd;
+}
+
+.btn-circle {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    padding: 6px 0;
+    font-size: 12px;
+    line-height: 1.428571429;
+    border-radius: 15px;
+}
+.btn-circle.btn-lg {
+    width: 35px;
+    height: 35px;
+    padding: 6px 10px;
+    font-size: 18px;
+    line-height: 1.33;
+    border-radius: 25px;
+}
+.btn-circle.btn-xl {
+    width: 70px;
+    height: 70px;
+    padding: 10px 16px;
+    font-size: 24px;
+    line-height: 1.33;
+    border-radius: 35px;
+}
+
+.line-horizontal{
+    z-index:999;
+    display:none;
+    border-top: 1px dashed red;width:100%;
+    position: absolute;
+}
+.line-vertical{
+    z-index:999;
+    display:none;
+    height:100%;
+    top: 0 !important;
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    border-left: 1px dashed red;
+    z-index: 200;
+    border-top: none;
+    border-bottom: none;
+}
+
+.vessel-ramp-line{
+    display: none;
+}
+
+.head-vessel-right,.head-vessel-left
+{
+    width: 20px;
+    height: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center; /* align horizontal */
+    align-items: center; /* align vertical */
+}
+
+.vessel-status-right,.vessel-status-left{
+    border-bottom: 1px solid;
+    width: 16px;
+    font-size: 12px;
+    height: 16px;
+    font-weight: bold;
+    position: absolute;
+    padding-top: 2px;
+    top:0;
+}
+.head-vessel-right,.vessel-status-right{
+    float: right;
+    right:0;
+}
+
+.head-vessel-left,.vessel-status-left{
+    float: left;
+    left:0;
+}
+.vessel-status-right{
+    border-left: 1px solid;
+}
+.vessel-status-left{
+    border-right: 1px solid;
+}
+
+.along-side-left,.along-side-right{
+    border-top: 1px solid;
+    width: 16px;
+    height:16px;
+    position: absolute;
+    bottom: 0;
+    font-size: 12px;
+    font-weight: bold;
+    padding-top: 2px;
+}
+
+.along-side-left{
+    border-right: 1px solid;
+    float: left;
+    left: 0;
+}
+.along-side-right{
+    border-left: 1px solid;
+    float: right;
+    right:0;
+}
+.noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none;   /* Chrome/Safari/Opera */
+    -khtml-user-select: none;    /* Konqueror */
+    -moz-user-select: none;      /* Firefox */
+    -ms-user-select: none;       /* IE/Edge */
+    user-select: none;           /* non-prefixed version, currently
+                                  not supported by any browser */
+}

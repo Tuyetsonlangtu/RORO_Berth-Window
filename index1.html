@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Berth window</title>
+
+    <link href="assets/css/jquery-ui.min.css" rel="stylesheet" type="text/css">
+    <link href="assets/css/app.css" rel="stylesheet" type="text/css">
+    <link href="assets/css/font-awesome.css" rel="stylesheet" type="text/css">
+
+    <script src="assets/js/jquery-2.2.0.min.js"></script>
+    <script src="assets/js/jquery-ui.min.js"></script>
+    <script src="assets/js/angular.min.js"></script>
+    <script src="assets/js/moment.js"></script>
+
+    <script src="assets/js/data.js"></script>
+    <script src="assets/js/app.js"></script>
+
+    <style>
+        #block1{
+            width: 100%;
+            height: 150px;
+            position: relative;
+        }
+
+        #block2
+        {
+            width: 100%;
+            position: relative;
+            height: calc(100% - 170px);
+            margin-top: 2px;
+        }
+
+        #block3
+        {
+            width: 100%;
+            height: 15px;
+            position: relative;
+            margin-top: 5px;
+        }
+
+        #col2-sub1
+        {
+            float: left;
+        }
+
+        #col1,#col3
+        {
+            margin-top: 0;
+        }
+
+        #col3-sub1
+        {
+            width: 222px;
+            float: left;
+            margin-top: 5px;
+            margin-left: 4px;
+        }
+
+        ::-webkit-scrollbar {
+            width: 0px;
+            height: 0px;;
+        }
+        ::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+            background-color: #F5F5F5;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: rgb(185, 185, 185);
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background-color: #aaa;
+        }
+
+        #div_scroll::-webkit-scrollbar {
+            height: 15px;;
+        }
+
+        #col3-sub1::-webkit-scrollbar {
+            height: 15px;;
+        }
+        #col3-sub1::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;;
+        }
+
+        #col2{
+            width: calc(100% - 330px);
+        }
+        #col1,#col2,#col3{
+            overflow: auto;
+        }
+
+        #col2-sub1{
+            width: calc(100% - 330px);
+            overflow: auto;
+        }
+
+        #col3-sub1{
+            width: 222px;
+            right: 1px;
+            margin-top: 5px;
+            height: 145px;
+            position: absolute;
+        }
+
+    </style>
+</head>
+<body ng-app="ngApp" ng-controller="IndexController">
+<div id="content" class="noselect">
+    <div id="block1">
+        <div id="col1-sub1" style="text-align: center;vertical-align: middle">
+            <div style="display: inline-block;width: 100%;margin-top: 15px;">
+                <button type="button" class="btn btn-primary btn-circle btn-lg"><i class="fa fa-search-plus"></i></button>
+            </div>
+            <div style="display: inline-block;width: 100%;margin-top: 10px;">
+                <button type="button" class="btn btn-primary btn-circle btn-lg"><i class="fa fa-search-minus"></i></button>
+            </div>
+        </div>
+
+        <!--<div id="col2-sub1" ng-style="ContentStyle.style">-->
+        <div id="col2-sub1">
+            <table class="table-header" ng-style="ContentStyle.style">
+                <tr>
+                    <td id="berth-group">
+                        <div ng-repeat="berth in BerthData track by $index" ng-style="BerthStyle.style_group[$index]">{{berth.group}}</div>
+                    </td>
+                </tr>
+            </table>
+
+            <table class="table-header" ng-style="ContentStyle.style">
+                <tr>
+                    <td ng-repeat="berth1 in BerthData track by $index" ng-style="BerthStyle.style_content[$index]">{{berth1.name}}</td>
+                </tr>
+            </table>
+
+            <table id="table-bitt-number" ng-style="ContentStyle.style">
+                <tr>
+                    <td style="position: relative;height: 20px;">
+                        <div ng-repeat="bitt in BerthStyle.style_bitt.data_style track by $index" ng-style="bitt.style">{{bitt.name}}</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="position: relative;height: 15px;">
+                        <div ng-repeat="st in BerthStyle.style_position track by $index" ng-style="st.style">{{st.value}}</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td id="div_rule" style="position: relative;height: 15px;bottom: -1px;">
+                        <div ng-repeat="rl in BerthStyle.style_bitt.data_style track by $index" ng-style="rl.style_rule"></div>
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+        <div id="col3-sub1" class="col3-sub1-scroll">
+            <div id="gang-box-content" class="has-gang">
+                <div gang-color="blueviolet" style="background: blueviolet; height: 100px;" class="gang-vertical-box"><span>Gang 1</span></div>
+                <div gang-color="aqua" style="background: aqua; height: 80px;" class="gang-vertical-box"><span>Gang 2</span></div>
+                <div gang-color="yellow" style="background: yellow;height: 150px;" class="gang-vertical-box"><span>Gang 3</span></div>
+            </div>
+
+        </div>
+    </div>
+    <div id="block2">
+        <div style="background: white;width: 100%;height:4px;"></div>
+        <div id="col1">
+            <div id="col1-sub2">
+                <table id="table-time-left">
+                    <colgroup>
+                        <col width="60px">
+                        <col width="30px">
+                    </colgroup>
+                    <tr ng-repeat="item in timeData track by $index">
+                        <td ng-style="tableTimes[item.idx].style">{{item.title}}</td>
+                        <td>
+                            <div ng-repeat="row in item.value track by $index" ng-style="tableTimes[item.idx].styleChildLeft[$index]">
+                                <span>{{row}}</span>
+                                <div style="float: right; height: 100%;width: 5px;">
+                                    <div style="width: 5px; height: 9px;border-bottom: 1px solid #ABABAB"></div>
+                                    <div style="width: 5px; height: 9px; border-bottom: 1px solid #ABABAB"></div>
+                                    <div style="width: 5px; height: 9px; border-bottom: 1px solid #ABABAB"></div>
+                                    <div style="width: 5px; height: 9px;border-bottom: 1px solid #ABABAB"></div>
+                                    <div style="width: 5px; height: 9px;border-bottom: 1px solid #ABABAB"></div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div id="col2">
+            <div id="col2-sub2" ng-style="mapStyle.style">
+                <div id="tooltip" class="tooltip">
+                    <a href="javascript:;" id="btn_close_tooltip">
+                        <span>x</span>
+                    </a>
+                </div>
+
+                <div id="vessel-content"ng-style="mapStyle.style">
+                    <!--<div style="width: 300px;height: 900px;position: absolute" id="berth-1"></div>
+                    <div style="width: 300px;height: 900px;position: absolute;left: 300px;" id="berth-2"></div>-->
+                </div>
+                <table id="table-ship" ng-style="mapStyle.style">
+                    <tr>
+                        <td>
+                            <div ng-repeat="item in mapStyles track by $index" ng-style="item.childStyle">
+                                <div class="guide-line" style="width: 100%; height: 9px;border-bottom: 1px dotted #ABABAB"></div>
+                                <div class="guide-line" style="width: 100%; height: 9px;border-bottom: 1px dotted #ABABAB"></div>
+                                <div class="guide-line" style="width: 100%; height: 9px;border-bottom: 1px dotted #ABABAB"></div>
+                                <div class="guide-line" style="width: 100%; height: 9px;border-bottom: 1px dotted #ABABAB"></div>
+                                <div class="guide-line" style="width: 100%; height: 9px;border-bottom: 1px dotted #ABABAB"></div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+        </div>
+        <div id="vessel-line-content"></div>
+
+        <!--<div id="col3" ng-style="StyleColGang">-->
+        <div id="col3">
+            <div id="col3-sub2" ng-style="mapStyle.height" >
+            </div>
+            <div id="col3-sub3">
+                <table id="table-time-right">
+                    <colgroup>
+                        <col width="30px">
+                        <col width="30px">
+                        <col width="30px">
+                    </colgroup>
+                    <tr ng-repeat="item in timeData track by $index">
+                        <td ng-style="tableTimes[item.idx].styleLeft">
+                            <div ng-repeat="r1 in item.value track by $index" ng-style="tableTimes[item.idx].styleChildRigth1[$index]">
+                                <span>{{r1}}</span>
+                                <div style="float: left; height: 100%;width: 5px;">
+                                    <div style="width: 5px; height: 9px;border-bottom: 1px solid #ABABAB"></div>
+                                    <div style="width: 5px; height: 9px; border-bottom: 1px solid #ABABAB"></div>
+                                    <div style="width: 5px; height: 9px; border-bottom: 1px solid #ABABAB"></div>
+                                    <div style="width: 5px; height: 9px;border-bottom: 1px solid #ABABAB"></div>
+                                    <div style="width: 5px; height: 9px;border-bottom: 1px solid #ABABAB"></div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div ng-repeat="r2 in DataNumberGangForShowData[$index].value track by $index" ng-style="tableTimes[item.idx].styleChildRigth2[$index]">
+                                <span style="position: absolute;top: 6px;left: 12px;">{{r2}}</span>
+                            </div>
+                        </td>
+                        <td style="text-align: center;vertical-align: middle">{{DataMaxNumberGang[$index].value}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div id="block3">
+           <div style="float: left;width: 100px;height: 15px;"></div>
+           <div id="div_scroll" style="width: calc(100% - 330px);overflow: auto;height: 15px;">
+               <div style="height: 15px !important;" ng-style="ContentStyle.style"></div>
+           </div>
+           <div style="width: 225px;height: 15px;position: absolute;top: 0;right: 0;"></div>
+    </div>
+</div>
+</body>
+
+    <div id="dialog-overlay"></div>
+    <div id="dialog-box">
+        <div class="dialog-title">
+            <span>Warnning</span>
+        </div>
+        <div class="dialog-content">
+            <div id="dialog-message"></div>
+            <a href="#" class="button">Close</a>
+        </div>
+    </div>
+
+</html>
