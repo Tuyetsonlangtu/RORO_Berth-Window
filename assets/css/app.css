@@ -382,7 +382,7 @@ hr.vertical
 div.vertical {
     top: 0 !important;
     position: absolute;
-    color: black;
+    color: red;
     margin: 0;
     padding: 0;
     border-left: 1px dashed;
@@ -671,7 +671,7 @@ a.button:hover {
 .line-horizontal{
     z-index:999;
     display:none;
-    border-top: 1px dashed red;width:100%;
+    border-top: 1px dashed black;width:100%;
     position: absolute;
 }
 .line-vertical{
@@ -682,7 +682,7 @@ a.button:hover {
     position: absolute;
     margin: 0;
     padding: 0;
-    border-left: 1px dashed red;
+    border-left: 1px dashed black;
     z-index: 200;
     border-top: none;
     border-bottom: none;

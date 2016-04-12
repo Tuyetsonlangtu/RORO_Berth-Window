@@ -1080,6 +1080,7 @@ angular.module('ngApp', [])
 
             $("div.shiping").click(function(e){
 
+                $scope.UpdateLine($(this));
                 $(this).addClass("vessel-selected");
                 div_vessel_selected = $(this);
 
@@ -1090,16 +1091,23 @@ angular.module('ngApp', [])
                 //Hide vessel line
                 $("div.bridge").hide();
                 $("div.vessel-line").hide();
+                $("div.vessel-ramp-line").hide();
+                $("div.vessel-ramp-top").hide();
 
                 var vessel_id= $(target).attr("vessel-id");
-                $("#stern-ramp-top-"+vessel_id).show();
-                $("#side-ramp-top-"+vessel_id).show();
-                $("#stern-ramp-line-left-"+vessel_id).show();
-                $("#stern-ramp-line-right-"+vessel_id).show();
-                $("#side-ramp-line-left-"+vessel_id).show();
-                $("#side-ramp-line-right-"+vessel_id).show();
-                $("div[id$='bridge-line-"+vessel_id+"']").show();
-                $("div[id$='bridge-line-"+vessel_id+"']").show();
+                if($scope.displayBridge){
+                    $("div[id$='bridge-line-"+vessel_id+"']").show();
+                }
+
+                if($scope.displayRamp){
+                    $("#stern-ramp-top-"+vessel_id).show();
+                    $("#side-ramp-top-"+vessel_id).show();
+                    $("#stern-ramp-line-left-"+vessel_id).show();
+                    $("#stern-ramp-line-right-"+vessel_id).show();
+                    $("#side-ramp-line-left-"+vessel_id).show();
+                    $("#side-ramp-line-right-"+vessel_id).show();
+                }
+
                 $("div[id$='vessel-line-top-"+vessel_id+"']").show();
                 $("div[id$='vessel-line-bottom-"+vessel_id+"']").show();
                 $("div[id$='vessel-line-left-"+vessel_id+"']").show();
@@ -1195,64 +1203,42 @@ angular.module('ngApp', [])
 
 
         $scope.col1Width = 100;
+        $scope.block1Height = 152;
         $scope.UpdateLine = function(target){
-
             $timeout(function(){
                 var vessel_id = $(target).attr("vessel-id");
-                var left1 = $(target).find("div[id$='stern-ramp-"+vessel_id+"']");
-                var left2 = $(target).find("div[id$='side-ramp-"+vessel_id+"']");
-                var height = $(target).position().top + $(target).height();
+                var left1 = $("#vessel-"+vessel_id).find("div[id$='stern-ramp-"+vessel_id+"']");
+                var left2 = $("#vessel-"+vessel_id).find("div[id$='side-ramp-"+vessel_id+"']");
+                var height = $("#vessel-"+vessel_id).position().top + $("#vessel-"+vessel_id).height();
 
                 var width1= $("#stern-ramp-"+vessel_id).width();
                 var width2= $("#side-ramp-"+vessel_id).width();
 
-                $("#stern-ramp-line-left-"+vessel_id).attr("style","height:"+height+"px;");
-                $("#side-ramp-line-left-"+vessel_id).attr("style","height:"+height+"px;");
-                $("#bridge-line-"+vessel_id).attr("style","height:"+$(target).position().top+"px;display:block");
-
-                $("#stern-ramp-line-left-"+vessel_id).offset({
-                    top:0,
-                    left:$(left1).position().left + $(target).position().left + 2
-                });
-                $("#side-ramp-line-left-"+vessel_id).offset({
-                    top:0,
-                    left:$(left2).position().left + $(target).position().left + 2
-                });
-
-                $("#bridge-line-"+vessel_id).offset({
-                    top:0,
-                    left:$("#bridge-"+vessel_id).offset().left
-                });
-
-                $("#stern-ramp-line-right-"+vessel_id).attr("style","height:"+height+"px;");
-                $("#side-ramp-line-right-"+vessel_id).attr("style","height:"+height+"px;");
-                $("#stern-ramp-line-right-"+vessel_id).offset({
-                    top:0,
-                    left:$(left1).position().left + $(target).position().left + width1 + 1
-                });
-                $("#side-ramp-line-right-"+vessel_id).offset({
-                    top:0,
-                    left:$(left2).position().left + $(target).position().left + width2 + 1
-                });
+                $("#stern-ramp-line-left-"+vessel_id).css("height",height);
+                $("#side-ramp-line-left-"+vessel_id).css("height",height);
+                $("#side-ramp-line-left-"+vessel_id).css("height",height);
+                $("#bridge-line-"+vessel_id).css("height",$("#vessel-"+vessel_id).position().top);
+                $("#stern-ramp-line-left-"+vessel_id).css("left",$(left1).offset().left - $scope.col1Width + $scope.scrollLeft);
+                $("#side-ramp-line-left-"+vessel_id).css("left",$(left2).offset().left - $scope.col1Width + $scope.scrollLeft);
+                $("#bridge-line-"+vessel_id).css("left",$("#bridge-"+vessel_id).offset().left - $scope.col1Width + $scope.scrollLeft);
+                $("#stern-ramp-line-right-"+vessel_id).css("height",height);
+                $("#side-ramp-line-right-"+vessel_id).css("height",height);
+                $("#stern-ramp-line-right-"+vessel_id).css("left",$(left1).offset().left - $scope.col1Width + width1 + $scope.scrollLeft -1);
+                $("#side-ramp-line-right-"+vessel_id).css("left",$(left2).offset().left - $scope.col1Width + width1 + $scope.scrollLeft -1);
 
                 //Ramp top
-                $("#stern-ramp-top-"+vessel_id).css("left",$(target).position().left + $(left1).position().left +2 - $scope.scrollLeft);
-                $("#side-ramp-top-"+vessel_id).css("left",$(target).position().left + $(left2).position().left +2 - $scope.scrollLeft);
+                $("#stern-ramp-top-"+vessel_id).css("left",$(left1).offset().left - $scope.col1Width);
+                $("#side-ramp-top-"+vessel_id).css("left",$(left2).offset().left - $scope.col1Width);
 
                 //Line vessel
-                $("#vessel-line-top-"+vessel_id).css("top",$(target).position().top - $scope.scrollTop + block2_margin);
-                $("#vessel-line-bottom-"+vessel_id).css("top", $(target).position().top + $(target).height() +3 - $scope.scrollTop + block2_margin);
+                $("#vessel-line-top-"+vessel_id).css("top",$("#vessel-"+vessel_id).offset().top - $scope.block1Height);
+                $("#vessel-line-bottom-"+vessel_id).css("top", $("#vessel-"+vessel_id).offset().top +$("#vessel-"+vessel_id).height() - $scope.block1Height + 3);
 
-                $("#vessel-line-left-"+vessel_id).css("left",$scope.col1Width + $(target).position().left - $scope.scrollLeft);
-                $("#vessel-line-right-"+vessel_id).css("left",$scope.col1Width + $(target).position().left + $(target).width() +3 - $scope.scrollLeft);
+                $("#vessel-line-left-"+vessel_id).css("left",$("#vessel-content-"+vessel_id).offset().left);
+                $("#vessel-line-right-"+vessel_id).css("left",$("#vessel-content-"+vessel_id).offset().left + $("#vessel-content-"+vessel_id).width() +3);
 
-                $("#vessel-line-mooring-left-"+vessel_id).css("left",$scope.col1Width + $(target).position().left + $("#vessel-content-"+vessel_id).position().left +2 - $scope.scrollLeft);
-                $("#vessel-line-mooring-right-"+vessel_id).css("left",$scope.col1Width + $(target).position().left + $("#vessel-content-"+vessel_id).position().left + $("#vessel-content-"+vessel_id).width() + 5 - $scope.scrollLeft);
-
-                $("#stern-ramp-line-left-"+vessel_id).css("display","block");
-                $("#side-ramp-line-left-"+vessel_id).css("display","block");
-                $("#stern-ramp-line-right-"+vessel_id).css("display","block");
-                $("#side-ramp-line-right-"+vessel_id).css("display","block");
+                $("#vessel-line-mooring-left-"+vessel_id).css("left",$("#vessel-"+vessel_id).offset().left);
+                $("#vessel-line-mooring-right-"+vessel_id).css("left",$("#vessel-"+vessel_id).offset().left + $("#vessel-"+vessel_id).width() + 3);
 
             },50);
 
@@ -1635,22 +1621,6 @@ angular.module('ngApp', [])
             }
         }
 
-        $scope.InitMoveMouse = function (){
-
-            var div = $('#content'), wrapHeight = div.height(), listHeight = div.find('col2').outerHeight();
-
-            div.on('mousemove',
-                function(e){
-                    var cPointY = e.pageY,
-                        cST = div.scrollTop();
-                    if (cPointY >= (wrapHeight/2)) {
-                        div.scrollTop(cST + 10);
-                    }
-                    else {
-                        div.scrollTop(cST - 10);
-                    }
-                });
-        }
 
         //Main
         var strFromDate = "03/25/2015";
@@ -2066,7 +2036,6 @@ angular.module('ngApp', [])
             {
                 var top = $(this).scrollTop();
                 $scope.scrollTop = top;
-
                 var left = $(this).scrollLeft();
                 $scope.scrollLeft = left;
 
@@ -2089,11 +2058,25 @@ angular.module('ngApp', [])
 
                 $('#col3').scrollTop(top);
                 $('#col1').scrollTop(top);
+
+                //Update line
+                /*var div_vessels = $("div.shiping");
+                if(typeof div_vessels != 'undefined' && div_vessels.length >0){
+                    for(var i=0;i<div_vessels.length;i++)
+                        $scope.UpdateLine($(div_vessels[i]));
+                }*/
             });
         }
 
+        $scope.displayGang = true;
+        $scope.displayBridge = true;
+        $scope.displayRamp = true;
 
         $scope.VesselDisplay = function (isShowGang, isShowBridge, isShowRamp, isShowGrid){
+
+            $scope.displayGang = isShowGang;
+            $scope.displayBridge = isShowBridge;
+            $scope.displayRamp = isShowRamp;
 
             if(isShowGang){
                 $("div.vessel-gang").show();
@@ -2149,7 +2132,7 @@ angular.module('ngApp', [])
         $scope.InitScroll();
 
         $timeout(function(){
-            $scope.VesselDisplay(true,true,true,false);
+            $scope.VesselDisplay(true,true,true,true);
         },50);
 
         $scope.SetDisableScroll = function(tag, isDisable){
