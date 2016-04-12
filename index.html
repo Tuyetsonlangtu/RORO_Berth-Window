@@ -16,10 +16,12 @@
     <script src="assets/js/app.js"></script>
 
 </head>
-<body ng-app="ngApp" ng-controller="IndexController">
+<body ng-app="ngApp" ng-controller="IndexController" onBlur="closeWindow()">
 <div id="content">
+    <a href="javascript:window.opener=self;window.close();">close</a>
     <div id="col1">
         <div id="col1-sub1">
+
         </div>
         <div id="col1-sub2">
             <table id="table-time-left">
@@ -150,5 +152,11 @@
     </div>
 </div>
 </body>
+<script type="text/javascript">
+    function closeWindow()
+    {
+        opener.window.close();
+    }
+</script>
 
 </html>

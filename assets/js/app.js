@@ -227,6 +227,12 @@ angular.module('ngApp', [])
                                  if(bitt_end_position < bitt_data[k].end_position)
                                      bitt_end_position = bitt_data[k].end_position;
 
+                                 var width = 0;
+                                 if((j==0 && k==0) || (i== BerthData.length-1 && k== bitt_data.length -1))
+                                    width =  bitt_data[k].end_position - bitt_data[k].start_position - 1;
+                                 else
+                                    width = bitt_data[k].end_position - bitt_data[k].start_position;
+
                                  var obj_bit_style = {
                                      "style": {
                                         "width": bitt_data[k].end_position - bitt_data[k].start_position,
@@ -236,11 +242,11 @@ angular.module('ngApp', [])
                                          "text-align": "left"
                                      },
                                      "style_rule": {
-                                         "width": (j==0 && k==0) ? bitt_data[k].end_position - bitt_data[k].start_position - 1 : bitt_data[k].end_position - bitt_data[k].start_position,
+                                         "width": width,
                                          "height": 10 +"px",
                                          "left": bitt_data[k].start_position,
-                                         "border-left": (j==0 && k==0) ? "1px solid #525252":"" ,
-                                         "border-right": "1px solid #525252",
+                                         "border-left": "1px solid #525252",
+                                         "border-right": (i== BerthData.length-1 && k== bitt_data.length -1)? "1px solid #525252":"",
                                          "position": "absolute",
                                          "bottom":"0"
                                      },
@@ -265,6 +271,7 @@ angular.module('ngApp', [])
 
                          BittData[j].data = bitt_data;
                      }
+
                 }
             }
 
@@ -565,9 +572,9 @@ angular.module('ngApp', [])
                 content = "\
                     <div id='bridge-line-"+data.id+"' class='bridge' style='height:"+option.vessel_top+"px;left:"+(option.bridge_position -1)+"px'></div>\
                     <div id='vessel-"+data.id+"' calling_status_color='"+data.calling_status_color+"' calling_type_color='"+data.calling_type_color+"' service_lane_color='"+data.service_lane_color+"' berth-dir-cd='"+data.berth_dir_cd+"' along-side='"+data.along_side+"' LOA='"+data.LOA+"' bridge-to-stern='"+data.bridge_to_stern+"' vessel-status='"+data.status+"' vessel-id='"+data.id+"' head-position='"+data.head_position+"' stern-position='"+option.stern+"' vessel-dir='"+option.vessel_direction+"' morrring_bitt_left='"+option.mooring_distant_left+"' morrring_bitt_right='"+option.mooring_distant_right+"' class='shiping wrapper' style='width: "+(width-3)+"px;height: "+height+"px;position: absolute;top: "+ option.vessel_top +"px;left: "+option.vessel_left+"px;border: 2px solid;text-align: center;'>\
-                        <div id='stern-ramp-"+data.id+"' class='line-1 vessel-ramp' style='width: "+option.stern_ramp_width+"px;position: absolute;bottom:0;left: "+stern_ramp_left+"px;z-index: 100;border-bottom: 3px solid red;'></div>\
-                        <div id='side-ramp-"+data.id+"' class='line-2 vessel-ramp' style='width:"+option.side_ramp_width+"px;position: absolute;bottom:0;left: "+side_ramp_left+"px;z-index: 100;border-bottom: 3px solid red;'></div>\
-                        <div class='ship-left' style='width: "+(option.mooring_distant_left -2)+"px;height:100%;float: left; position: relative;'><span id='morring-bitt-left-"+data.id+"' bitt_id='"+mooring_bitt_left.id+"' style='font-size: 13px;float: left'>"+mooring_bitt_left.name+"</span></div>\
+                        <div id='stern-ramp-"+data.id+"' stern-ramp-distant='"+stern_ramp_distant+"' class='line-1 vessel-ramp' style='width: "+option.stern_ramp_width+"px;position: absolute;bottom:0;left: "+stern_ramp_left+"px;z-index: 100;border-bottom: 3px solid red;'></div>\
+                        <div id='side-ramp-"+data.id+"' side-ramp-distant='"+side_ramp_distant+"' class='line-2 vessel-ramp' style='width:"+option.side_ramp_width+"px;position: absolute;bottom:0;left: "+side_ramp_left+"px;z-index: 100;border-bottom: 3px solid red;'></div>\
+                        <div class='ship-left' style='width: "+(option.mooring_distant_left -2)+"px;height:100%;float: left; position: relative;'><span id='morring-bitt-left-"+data.id+"' bitt_id='"+mooring_bitt_left.id+"' berth_id='"+mooring_bitt_left.id_berth+"' style='font-size: 13px;float: left'>"+mooring_bitt_left.name+"</span></div>\
                         <div id='vessel-content-"+data.id+"' vessel-id="+data.id+" vessel-dir='"+option.vessel_direction+"' class='shipping-content' style='background: "+data.vessel_color+";height: "+height+"px;border-left: 2px solid;border-right: 2px solid;float: left;width: "+(width_vessel -3)+"px; position: relative;'>\
                                 <span style='font-size: 10px;float: left;font-weight: bold;margin-top: 2px;'>"+data.code+"</span>\
                                 <div id='bridge-"+data.id+"' class='vessel-bridge' style='height: 100%; position:absolute; border-left: 2px dashed red;left:"+(Math.abs(option.stern - option.bridge_position) -3)+"px'></div>\
@@ -579,7 +586,7 @@ angular.module('ngApp', [])
                                 <div class='along-side-left'><span>"+data.along_side_name+"</span></div>\
                                 <div id='bridge-content"+data.id+"' bridge-position='"+option.bridge_position+"' style='position: absolute;bottom: 4px;left: 20px;font-size: 10px;font-weight: bold;'><span>"+bridge_position.bridge_content+"</span></div>\
                         </div>\
-                        <div class='ship-right' style='width: "+(option.mooring_distant_right -2)+"px;height: 100%;float: right';position: relative;><span id='morring-bitt-right-"+data.id+"' bitt_id='"+mooring_bitt_right.id+"' style='font-size: 13px;float: right;'>"+mooring_bitt_right.name+"</span></div>\
+                        <div class='ship-right' style='width: "+(option.mooring_distant_right -2)+"px;height: 100%;float: right';position: relative;><span id='morring-bitt-right-"+data.id+"' bitt_id='"+mooring_bitt_right.id+"' berth_id='"+mooring_bitt_right.id_berth+"' style='font-size: 13px;float: right;'>"+mooring_bitt_right.name+"</span></div>\
                     </div>\
                     <div id='stern-ramp-line-left-"+data.id+"' style='height:"+ramp_line_height+"px; left:"+(stern_ramp_left_line +2)+"px' id='line-stern-ramp-"+data.id+"' id='line-stern-ramp-"+data.id+"' class='vertical vessel-ramp-line'> </div>\
                     <div id='side-ramp-line-left-"+data.id+"' style='height:"+ramp_line_height+"px; left:"+(side_ramp_left_line+2)+"px' id='line-stern-ramp-"+data.id+"' id='line-side-ramp-"+data.id+"' class='vertical vessel-ramp-line'> </div> \
@@ -613,9 +620,9 @@ angular.module('ngApp', [])
                 content = "\
                     <div id='bridge-line-"+data.id+"' class='bridge' style='height:"+option.vessel_top+"px;left:"+(option.bridge_position)+"px'></div>\
                     <div id='vessel-"+data.id+"' calling_status_color='"+data.calling_status_color+"' calling_type_color='"+data.calling_type_color+"' service_lane_color='"+data.service_lane_color+"' berth-dir-cd='"+data.berth_dir_cd+"' along-side='"+data.along_side+"' LOA='"+data.LOA+"' bridge-to-stern='"+data.bridge_to_stern+"' vessel-status='"+data.status+"' vessel-id="+data.id+" head-position='"+data.head_position+"' stern-position='"+option.stern+"' vessel-dir='"+option.vessel_direction+"' morrring_bitt_left='"+option.mooring_distant_left+"' morrring_bitt_right='"+option.mooring_distant_right+"' class='shiping wrapper' style='width: "+(width-3)+"px;height: "+height+"px;position: absolute;top: "+ option.vessel_top+"px;left: "+ option.vessel_left +"px;border: 2px solid;text-align: center;'>\
-                        <div id='stern-ramp-"+data.id+"' class='line-1 vessel-ramp' style='width: "+option.stern_ramp_width+"px;position: absolute;bottom:0;left: "+stern_ramp_left+"px;z-index: 100;border-bottom: 3px solid red;'></div>\
-                        <div id='side-ramp-"+data.id+"' class='line-2 vessel-ramp' style='width: "+option.side_ramp_width+"px;position: absolute;bottom:0;left: "+side_ramp_left+"px;z-index: 100;border-bottom: 3px solid red;'></div>\
-                        <div class='ship-left' style='width: "+(option.mooring_distant_left -2)+"px;height:100%;float: left;position: relative'><span id='morring-bitt-left-"+data.id+"' bitt_id='"+mooring_bitt_left.id+"' style='font-size: 13px;float: left'>"+mooring_bitt_left.name+"</span></div>\
+                        <div id='stern-ramp-"+data.id+"' stern-ramp-distant='"+stern_ramp_distant+"' class='line-1 vessel-ramp' style='width: "+option.stern_ramp_width+"px;position: absolute;bottom:0;left: "+stern_ramp_left+"px;z-index: 100;border-bottom: 3px solid red;'></div>\
+                        <div id='side-ramp-"+data.id+"' side-ramp-distant='"+side_ramp_distant+"' class='line-2 vessel-ramp' style='width: "+option.side_ramp_width+"px;position: absolute;bottom:0;left: "+side_ramp_left+"px;z-index: 100;border-bottom: 3px solid red;'></div>\
+                        <div class='ship-left' style='width: "+(option.mooring_distant_left -2)+"px;height:100%;float: left;position: relative'><span id='morring-bitt-left-"+data.id+"' bitt_id='"+mooring_bitt_left.id+"' berth_id='"+mooring_bitt_left.id_berth+"' style='font-size: 13px;float: left'>"+mooring_bitt_left.name+"</span></div>\
                         <div id='vessel-content-"+data.id+"' vessel-id="+data.id+" vessel-dir='"+option.vessel_direction+"' class='shipping-content' style='background: "+data.vessel_color+";height: "+height+"px;border-left: 2px solid;border-right: 2px solid;float: left;width: "+(width_vessel -3)+"px; position: relative;'>\
                                 <div class='head-vessel-left'> \
                                         <div class='vessel-status-left'>"+data.status+"</div> \
@@ -627,7 +634,7 @@ angular.module('ngApp', [])
                                 <div class='along-side-right'><span>"+data.along_side_name+"</span></div>\
                                 <div id='bridge-content"+data.id+"' bridge-position='"+option.bridge_position+"' style='position: absolute;bottom: 4px;right: 20px;font-size: 10px;font-weight: bold;'><span>"+bridge_position.bridge_content+"</span></div>\
                         </div>\
-                        <div class='ship-right' style='width: "+(option.mooring_distant_right -2)+"px;height: 100%;float: right';position: relative;><span id='morring-bitt-right-"+data.id+"' bitt_id='"+mooring_bitt_right.id+"' style='font-size: 13px;float: right;'>"+mooring_bitt_right.name+"</span></div>\
+                        <div class='ship-right' style='width: "+(option.mooring_distant_right -2)+"px;height: 100%;float: right';position: relative;><span id='morring-bitt-right-"+data.id+"' bitt_id='"+mooring_bitt_right.id+"' berth_id='"+mooring_bitt_right.id_berth+"' style='font-size: 13px;float: right;'>"+mooring_bitt_right.name+"</span></div>\
                     </div> \
                     <div id='stern-ramp-line-left-"+data.id+"' style='height:"+ramp_line_height+"px;left:"+(stern_ramp_left_line +2)+"px' class='vertical vessel-ramp-line'></div>\
                     <div id='side-ramp-line-left-"+data.id+"' style='height:"+ramp_line_height+"px;left:"+(side_ramp_left_line +2)+"px' class='vertical vessel-ramp-line'></div> \
@@ -1034,6 +1041,7 @@ angular.module('ngApp', [])
             }
         };
 
+
         $scope.InitMouseEvent = function()
         {
             $("div.gang-child").hover(function() {
@@ -1095,6 +1103,29 @@ angular.module('ngApp', [])
                 $("div.vessel-ramp-top").hide();
 
                 var vessel_id= $(target).attr("vessel-id");
+                //Set color for bitt
+                $("div.bitt-ruller").css("border-left-color","rgb(82, 82, 82)");
+                $("div.bitt-ruller").css("border-right-color","rgb(82, 82, 82)");
+                var span_morring_bitt_left = $("#morring-bitt-left-"+vessel_id);
+                var span_morring_bitt_right = $("#morring-bitt-right-"+vessel_id);
+                if(typeof span_morring_bitt_left != 'undefined'){
+                    var bitt_id = $(span_morring_bitt_left).attr("bitt_id");
+                    var breth_id = $(span_morring_bitt_left).attr("berth_id");
+                    var div_bitt_left = $("#"+bitt_id +"-"+breth_id);
+                    if(typeof div_bitt_left != 'undefined'){
+                        $(div_bitt_left).css("border-left-color","red");
+                    }
+                }
+                if(typeof span_morring_bitt_right != 'undefined'){
+                    var bitt_id = $(span_morring_bitt_right).attr("bitt_id");
+                    var breth_id = $(span_morring_bitt_right).attr("berth_id");
+                    var div_bitt_right = $("#"+bitt_id +"-"+breth_id);
+                    if(typeof div_bitt_right != 'undefined'){
+                        $(div_bitt_right).css("border-left-color","red");
+                    }
+                }
+
+
                 if($scope.displayBridge){
                     $("div[id$='bridge-line-"+vessel_id+"']").show();
                 }
@@ -1121,6 +1152,8 @@ angular.module('ngApp', [])
                 $("div.shiping").removeClass("vessel-selected");
                 div_vessel_selected = null;
 
+                $("div.bitt-ruller").css("border-left-color","rgb(82, 82, 82)");
+                $("div.bitt-ruller").css("border-right-color","rgb(82, 82, 82)");
                 $("div.bridge").hide();
                 $("div.vessel-line").hide();
                 $("#tooltip").css("opacity",0);
@@ -1150,17 +1183,21 @@ angular.module('ngApp', [])
                                            <p>ETD: "+dataSave[i].ETD_date+"</p>\
                                            <p>Est. Volume(D/L/R) : 300/500/0</p>";
 
+                            $("#tooltip").css("width",dataSave[i].LOA);
                             $("#tooltip").find("p").remove();
                             $("#tooltip").append(content);
                         }
                     }
                 }
 
-                var top =$("#vessel-"+vessel_id).position().top + $(target).height();
-                var left =$("#vessel-"+vessel_id).position().left;
+                var top = $("#vessel-"+vessel_id).offset().top - $scope.block1Height + $("#vessel-"+vessel_id).height() + $scope.scrollTop;
+                var left = $("#vessel-content-"+vessel_id).offset().left - $scope.col1Width;
+
+                console.log("vessel top",top);
+
                 $("#tooltip").css("opacity",1);
                 $("#tooltip").css("z-index",9999);
-                $("#tooltip").css("top",top -5);
+                $("#tooltip").css("top",top -2);
                 $("#tooltip").css("left",left);
             });
 
@@ -1279,10 +1316,25 @@ angular.module('ngApp', [])
             if(typeof morring_bit_left_tag == "undefined" || typeof morring_bit_right_tag == "undefined")
                 return;
 
+            $("div.bitt-ruller").css("border-left-color","rgb(82, 82, 82)");
+            $("div.bitt-ruller").css("border-right-color","rgb(82, 82, 82)");
+            var div_bitt_left = $("#"+morring_bitt_left.id+"-"+morring_bitt_left.id_berth);
+            if(typeof div_bitt_left != 'undefined')
+            {
+                $(div_bitt_left).css("border-left-color","red");
+            }
+            var div_bitt_right = $("#"+morring_bitt_right.id+"-"+morring_bitt_right.id_berth);
+            if(typeof div_bitt_right != 'undefined')
+            {
+                $(div_bitt_right).css("border-left-color","red");
+                $(div_bitt_right).css("border-right-color","red");
+            }
+
             $(morring_bit_left_tag).attr("bitt_id",morring_bitt_left.id)
             $(morring_bit_right_tag).attr("bitt_id",morring_bitt_right.id);
             $(morring_bit_left_tag).text(morring_bitt_left.name)
             $(morring_bit_right_tag).text(morring_bitt_right.name);
+
 
             var berth_bitt_left = $scope.GetBittByPosition(left + ramp_left_width);
             var berth_bitt_right = $scope.GetBittByPosition($(target).position().left + $("#vessel-content-"+vessel_id).width() + 3 + ramp_left_width);
@@ -2220,4 +2272,61 @@ angular.module('ngApp', [])
         }
 
         $scope.InitArrowKeys();
+
+        $scope.ApplyMorringDistant = function(morring_distant){
+            if(typeof div_vessel_selected != 'undefined'){
+
+                var full_width = $(div_vessel_selected).width();
+                var vessel_id = $(div_vessel_selected).attr("vessel-id");
+
+                var offset = $(div_vessel_selected).offset();
+                var ship_left = $(div_vessel_selected).find("div.ship-left");
+                var ship_right = $(div_vessel_selected).find("div.ship-right");
+                var vessel_centent = $("#vessel-content-"+vessel_id);
+                var left = offset.left + $(ship_left).width() +2 - morring_distant - $scope.col1Width;
+                var vessel_dir = $(div_vessel_selected).attr("vessel-dir");
+
+
+                //Update ramp position
+                var stern_ramp = $("#stern-ramp-"+vessel_id);
+                var side_ramp = $("#side-ramp-"+vessel_id);
+                if(typeof stern_ramp != 'undefined'){
+                    var stern_ramp_distant = parseInt($(stern_ramp).attr("stern-ramp-distant"));
+                    var stern_ramp_left = morring_distant + stern_ramp_distant;
+                    $(stern_ramp).css("left",stern_ramp_left);
+                }
+                if(typeof side_ramp != 'undefined'){
+                    var side_ramp_distant = parseInt($(side_ramp).attr("side-ramp-distant"));
+                    var side_ramp_left = morring_distant + side_ramp_distant;
+                    $(side_ramp).css("left",side_ramp_left);
+                }
+
+                $(ship_left).css("width", morring_distant -2);
+                $(ship_right).css("width", morring_distant -2);
+                $(div_vessel_selected).css("width",$(vessel_centent).width() + morring_distant*2);
+                $(div_vessel_selected).css("left",left);
+
+                //update morring distant to data
+
+
+                if($scope.VesselDataEdit != null && $scope.VesselDataEdit.length >0){
+                    for(var i=0;i<$scope.VesselDataEdit.length;i++){
+                        if($scope.VesselDataEdit[i].id == vessel_id){
+                            $scope.VesselDataEdit[i].mooring_distant_left = morring_distant;
+                            $scope.VesselDataEdit[i].mooring_distant_right = morring_distant;
+                            return;
+                        }
+                    }
+                }
+
+                //Update line and data
+                $scope.UpdateLine(div_vessel_selected);
+                $scope.UpdateData(div_vessel_selected);
+                $scope.UpdateGangRightPositionByVessel(div_vessel_selected);
+            }
+        }
+
+        $("#btn_apply").click(function(){
+            $scope.ApplyMorringDistant( parseInt($("#txt_morring_distant").val()));
+        });
     });
